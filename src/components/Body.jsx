@@ -8,8 +8,9 @@ function Body() {
     color: "",
   });
   const [visibleRespuesta, setVisibleRespuesta] = useState(false);
+  const [visibleError, setVisibleError] = useState(false);
 
-  const changeInput = (e) => {
+  const onChange = (e) => {
     const llave = e.target.name;
     const valor = e.target.value;
     const nuevoFormulario = {
@@ -17,15 +18,25 @@ function Body() {
       [llave]: valor,
     };
 
-    // console.log(nuevoFormulario);
     setFormulario(nuevoFormulario);
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    console.log(formulario);
-    setVisibleRespuesta(true);
+    const nombre = formulario.nombre.trim();
+    const color = formulario.color;
+
+    const regex = /^[A-Fa-f0-9]{6}$/;
+    const verificaRegex = regex.test(color);
+
+    if (nombre.length >= 3 && verificaRegex) {
+      setVisibleRespuesta(true);
+      setVisibleError(false);
+    } else {
+      setVisibleError(true);
+      setVisibleRespuesta(false);
+    }
   };
 
   return (
@@ -37,16 +48,13 @@ function Body() {
           <Formulario
             formulario={formulario}
             onSubmit={onSubmit}
-            changeInput={changeInput}
+            onChange={onChange}
+            visibleError={visibleError}
           />
         </div>
       </div>
 
-      <div className="card m-5">
-        <div className="card-body">
-          {visibleRespuesta && <Card {...formulario} />}
-        </div>
-      </div>
+      {visibleRespuesta && <Card {...formulario} />}
     </>
   );
 }

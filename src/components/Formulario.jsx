@@ -2,7 +2,8 @@ import Input from "./Input";
 import ErrorMessage from "./ErrorMessage";
 
 function Formulario(propiedades) {
-  const { formulario, onSubmit, changeInput } = propiedades;
+  const { formulario, onSubmit, onChange, visibleError } = propiedades;
+
   return (
     <>
       <form onSubmit={onSubmit}>
@@ -14,7 +15,7 @@ function Formulario(propiedades) {
           label="Ingresa tu Nombre"
           placeholder="Timmy"
           value={formulario.nombre}
-          onChange={changeInput}
+          onChange={onChange}
         />
 
         <Input
@@ -22,9 +23,9 @@ function Formulario(propiedades) {
           name="color"
           id="color"
           label="Ingresa un Color (Hexadecimal)"
-          placeholder="#00ff00"
+          placeholder="00ff00"
           value={formulario.color}
-          onChange={changeInput}
+          onChange={onChange}
         />
 
         <button type="submit" className="btn btn-success">
@@ -32,7 +33,7 @@ function Formulario(propiedades) {
         </button>
 
         {/* Validaciones */}
-        <ErrorMessage />
+        {visibleError && <ErrorMessage />}
       </form>
     </>
   );

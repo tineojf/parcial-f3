@@ -6,7 +6,7 @@ function ErrorMessage() {
   };
   return (
     <div className="form-text mt-4" style={estilos}>
-      Chequea la informacion y vuelve a enviar el formulario
+      Por favor chequea que la información sea correcta y vuelve a enviar el formulario
     </div>
   );
 }
